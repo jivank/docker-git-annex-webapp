@@ -1,10 +1,6 @@
-FROM debian:testing
-
+FROM debian:buster
+ENV LISTEN_ADDRESS 127.0.0.1 
 RUN mkdir /data
 RUN apt update
-RUN apt install socat git-annex -y && rm -rf /var/lib/apt/lists/*
-ADD start.sh /start.sh
-CMD /start.sh
-
-EXPOSE 8888
-VOLUME /data
+RUN apt install git-annex -y && rm -rf /var/lib/apt/lists/*
+CMD git annex webapp --listen=$LISTEN_ADDRESS
